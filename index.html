@@ -1,0 +1,214 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Generator LJK</title>
+<link rel="manifest" href="manifest.webmanifest">
+<meta name="theme-color" content="#0f766e">
+<meta name="mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-title" content="LJK">
+<link rel="icon" type="image/png" href="icons/favicon.png">
+<link rel="apple-touch-icon" href="icons/apple-touch-icon.png">
+<style>
+:root{--bg:#f3f4f6;--card:#fff;--tx:#111827;--mu:#6b7280;--bd:#d1d5db;--ac:#0f766e;--acx:#fff;box-sizing:border-box;padding-top:env(safe-area-inset-top,0px);padding-bottom:env(safe-area-inset-bottom,0px)}
+@media (prefers-color-scheme:dark){:root:not([data-theme="light"]){--bg:#111418;--card:#1c2127;--tx:#e5e7eb;--mu:#9ca3af;--bd:#374151;--ac:#2dd4bf;--acx:#042f2e}}
+:root[data-theme="dark"]{--bg:#111418;--card:#1c2127;--tx:#e5e7eb;--mu:#9ca3af;--bd:#374151;--ac:#2dd4bf;--acx:#042f2e}
+*{box-sizing:border-box}
+html{scroll-padding-top:env(safe-area-inset-top,0px)}
+body{margin:0;background:var(--bg);color:var(--tx);font:15px/1.4 system-ui,-apple-system,"Segoe UI",Roboto,sans-serif}
+.app{max-width:1100px;margin:0 auto;padding:16px}
+h1{font-size:20px;margin:0 0 4px}
+.sub{color:var(--mu);margin:0 0 14px;font-size:13px}
+.panel{background:var(--card);border:1px solid var(--bd);border-radius:12px;padding:14px;display:grid;grid-template-columns:repeat(auto-fit,minmax(230px,1fr));gap:12px;margin-bottom:16px}
+label{display:flex;flex-direction:column;gap:4px;font-size:12px;font-weight:600;color:var(--mu)}
+input[type=text],input[type=number],select{font:inherit;color:var(--tx);background:var(--bg);border:1px solid var(--bd);border-radius:8px;padding:8px 10px;width:100%}
+.full{grid-column:1/-1}
+.seg{display:flex;gap:8px;flex-wrap:wrap}
+.seg label{flex-direction:row;align-items:center;gap:6px;font-size:13px;font-weight:500;color:var(--tx);border:1px solid var(--bd);border-radius:8px;padding:8px 10px;background:var(--bg);cursor:pointer}
+.btns{display:flex;gap:8px;flex-wrap:wrap}
+button{font:inherit;font-weight:600;border-radius:8px;padding:9px 16px;border:1px solid var(--bd);background:var(--bg);color:var(--tx);cursor:pointer}
+button.p{background:var(--ac);color:var(--acx);border-color:var(--ac)}
+.stage{transform-origin:top left;width:max-content}
+.wrap{overflow:hidden}
+/* ===== lembar jawab ===== */
+.sheet{--w:210mm;--h:297mm;width:var(--w);height:var(--h);background:#fff;color:#000;font-family:var(--ff,Arial,Helvetica,sans-serif);padding:4mm;display:flex;flex-direction:column;box-shadow:0 2px 14px rgba(0,0,0,.25);overflow:hidden;-webkit-print-color-adjust:exact;print-color-adjust:exact}
+.in{border:.35mm solid #000;flex:1;display:flex;flex-direction:column;min-height:0}
+.top{display:grid;grid-template-columns:55% 45%;grid-template-rows:auto auto auto auto 1fr;border-bottom:.35mm solid #000}
+.col{display:contents}
+.top>.col:nth-child(1)>:nth-child(1){grid-area:1/1}.top>.col:nth-child(1)>:nth-child(2){grid-area:2/1}.top>.col:nth-child(1)>:nth-child(3){grid-area:3/1}.top>.col:nth-child(1)>:nth-child(4){grid-area:4/1}.top>.col:nth-child(1)>:nth-child(5){grid-area:5/1}
+.top>.col:nth-child(2)>*{border-left:.35mm solid #000}
+.top>.col:nth-child(2)>:nth-child(1){grid-area:1/2}.top>.col:nth-child(2)>:nth-child(2){grid-area:2/2}.top>.col:nth-child(2)>:nth-child(3){grid-area:3/2}.top>.col:nth-child(2)>:nth-child(4){grid-area:4/2}.top>.col:nth-child(2)>:nth-child(5){grid-area:5/2}
+.li{display:flex}.li b{flex:none;width:3.6mm;font-weight:700}.li b.w{width:auto;margin-right:2mm}.li b.d{width:2.6mm}.li span{flex:1}
+.hd{display:flex;gap:2mm;align-items:flex-start;padding:2mm}
+.hd>div:last-child{flex:1;min-width:0;text-align:center}
+.hd .t1,.hd .t2,.hd .t3{white-space:nowrap}
+.logo{width:15mm;height:15mm;flex:none;display:flex;align-items:center;justify-content:center}
+.logo img{max-width:100%;max-height:100%}
+.logo.ph{border:.3mm dashed #aaa;font-size:2.6mm;color:#aaa}
+.hd .t1{font-weight:700;font-size:3.7mm;line-height:1.1}
+.hd .t2{font-weight:700;font-size:6.2mm;line-height:1.1}
+.hd .t3{font-size:2.5mm;letter-spacing:.8mm;margin-top:1mm}
+.bar{background:#b9b9b9;text-align:center;font-weight:700;font-size:4.4mm;padding:.8mm 0;border-top:.35mm solid #000;border-bottom:.35mm solid #000}
+.bar.d{background:#777;color:#fff;letter-spacing:2.2mm;font-size:4.2mm;padding:1.2mm 0}
+.ctr{text-align:center;font-weight:700;font-size:3.3mm;padding:1.2mm 2mm}
+.how{font-size:2.7mm;font-weight:700;padding:0 2mm 1.5mm;line-height:1.5}
+.ex{display:inline-flex;vertical-align:middle;gap:.6mm}
+.box{flex:1;min-height:12mm;position:relative}
+.box .dots{position:absolute;left:8mm;right:2mm;bottom:2mm;border-bottom:.3mm dotted #000}
+.rules{font-size:2.9mm;font-weight:700;line-height:1.35;padding:2mm 2.5mm}
+.idf{padding:1.5mm 2.5mm;font-size:3.1mm;font-weight:700;display:flex;flex-direction:column;justify-content:space-evenly;gap:2mm}
+.idf div{display:grid;grid-template-columns:31mm 3mm 1fr;align-items:end;white-space:nowrap}
+.idf i{font-style:normal;flex:none}
+.idf s{flex:1;text-decoration:none;border-bottom:.3mm dotted #000}
+.sub2{text-align:center;font-weight:700;font-size:3.1mm;padding:1mm;border-bottom:.35mm solid #000}
+.opts{display:flex;min-height:0}
+.opts .g{padding:2mm 2.5mm}
+.opts .g+.g{border-left:.35mm solid #000}
+.gt{font-weight:700;font-size:2.7mm;margin-bottom:1.2mm}
+.grid{display:grid;column-gap:3mm}
+.r{display:flex;align-items:center;height:5.1mm;gap:.9mm}
+.o{width:4.3mm;height:4.3mm;border:.25mm solid #000;border-radius:50%;display:inline-flex;align-items:center;justify-content:center;font-size:2.7mm;line-height:1;flex:none}
+.o.n{margin-right:.8mm;font-size:2.4mm}
+.o.x{background:#000;color:#fff}
+.hint{text-align:center;font-weight:700;font-size:3.2mm;padding:1.2mm;border-bottom:.35mm solid #000}
+.note{font-size:2.6mm;padding:1.2mm 2mm;border-bottom:.35mm solid #000}
+.essay{flex:1;min-height:20mm;overflow:hidden;border-bottom:.35mm solid #000}
+.essay i{display:block;height:9.45mm;margin:0 2mm;border-bottom:.35mm dotted #000}
+.foot{font-size:2.6mm;font-weight:700;padding:1.2mm 3mm;line-height:1.35}
+@media print{
+ body{background:#fff}
+ .app{padding:0;max-width:none}
+ .noprint{display:none!important}
+ .wrap{overflow:visible}
+ .stage{zoom:1!important;transform:none!important}
+ .sheet{box-shadow:none;height:calc(var(--h) - .6mm);break-after:avoid}
+ .logo.ph{visibility:hidden}
+}
+</style>
+</head>
+<body>
+<div class="app">
+ <div class="noprint">
+  <h1>Generator Lembar Jawab Ujian (LJK)</h1>
+  <p class="sub">Ubah data di bawah, pratinjau langsung berubah dan tersimpan otomatis di perangkat ini.</p>
+  <div class="panel">
+   <label class="full">Kategori ujian<input type="text" id="kategori"></label>
+   <label>Nama lembaga<input type="text" id="lembaga"></label>
+   <label>Tahun ajaran<input type="text" id="tahun"></label>
+   <label class="full">Wilayah<input type="text" id="wilayah"></label>
+   <div class="full"><label>Model jawaban</label>
+    <div class="seg" id="modeSeg">
+     <label><input type="radio" name="mode" value="2" checked> Pilihan jamak + Benar/Salah</label>
+     <label><input type="radio" name="mode" value="1"> Pilihan jamak saja</label>
+    </div></div>
+   <label>Ukuran kertas<select id="ukuran"><option value="A4">A4 (210 × 297 mm)</option><option value="F4">F4 (215 × 330 mm)</option></select></label>
+   <label>Jumlah pilihan jawaban<select id="opsi"><option value="4">4 pilihan (a – d)</option><option value="5">5 pilihan (a – e)</option></select></label>
+   <label>Jenis font<select id="font"><option>Arial</option><option>Times New Roman</option><option>Verdana</option><option>Tahoma</option><option>Trebuchet MS</option><option>Calibri</option><option>Georgia</option><option>Courier New</option></select></label>
+   <label>Jumlah soal pilihan jamak<input type="number" id="npg" min="5" max="50"></label>
+   <label id="bsWrap">Jumlah soal benar/salah<input type="number" id="nbs" min="5" max="30"></label>
+   <label>Logo (opsional)<input type="file" id="logoFile" accept="image/*"></label>
+   <div class="full btns">
+    <button class="p" id="print">Cetak / Simpan PDF</button>
+    <button id="rmLogo">Hapus logo</button>
+    <button id="reset">Kembalikan default</button>
+    <button id="install" style="display:none">Instal Aplikasi</button>
+   </div>
+   <div class="full sub" style="margin:0">Saat dialog cetak terbuka: pilih ukuran kertas sama dengan pilihan di atas, margin “None/Tidak ada”, dan skala 100%.</div>
+  </div>
+ </div>
+ <div class="wrap" id="wrap"><div class="stage" id="stage"><div class="sheet" id="sheet"></div></div></div>
+ <style id="pageStyle"></style>
+</div>
+<script>
+const DEF={kategori:"ASESMEN SUMATIF AKHIR SEMESTER GENAP",lembaga:"MA AL-MA’TUQ",tahun:"1448-1449 H / 2026-2027 M",wilayah:"Kecamatan Cisaat Kabupaten Sukabumi",mode:"2",ukuran:"A4",npg:40,nbs:20,opsi:5,font:"Arial",logo:""};
+const KEY="ljk_state_v1";
+let S=Object.assign({},DEF);
+try{const r=localStorage.getItem(KEY);if(r)S=Object.assign({},DEF,JSON.parse(r));}catch(e){}
+const $=id=>document.getElementById(id);
+const esc=s=>String(s).replace(/[&<>"]/g,c=>({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;"}[c]));
+function save(){try{localStorage.setItem(KEY,JSON.stringify(S));}catch(e){}}
+const SZ={A4:[210,297],F4:[215,330]};
+const L=["a","b","c","d","e"];
+const bub=(t,c="")=>`<span class="o ${c}">${t}</span>`;
+function rows(n,start,fn){const cols=Math.ceil(n/10);let h=`<div class="grid" style="grid-template-columns:repeat(${cols},auto)">`;
+ for(let c=0;c<cols;c++){h+="<div>";for(let i=c*10;i<Math.min(n,c*10+10);i++)h+=`<div class="r">${bub(start+i,"n")}${fn(i)}</div>`;h+="</div>";}
+ return h+"</div>";}
+function render(){
+ const [w,h]=SZ[S.ukuran]||SZ.A4;
+ const sh=$("sheet");sh.style.setProperty("--w",w+"mm");sh.style.setProperty("--h",h+"mm");
+ $("pageStyle").textContent=`@page{size:${w}mm ${h}mm;margin:0}`;
+ const two=S.mode==="2";const LL=L.slice(0,S.opsi),hr=LL.length==4?"a,b,c atau d":"a,b,c,d atau e";sh.style.setProperty("--ff","'"+S.font+"',Arial,sans-serif");
+ const pg=rows(S.npg,1,()=>LL.map(l=>bub(l)).join(""));
+ const bs=two?rows(S.nbs,1,()=>bub("B")+bub("S")):"";
+ const logo=S.logo?`<div class="logo"><img src="${S.logo}" alt=""></div>`:`<div class="logo ph">LOGO</div>`;
+ sh.innerHTML=`<div class="in">
+ <div class="top">
+  <div class="col">
+   <div class="hd">${logo}<div><div class="t1">${esc(S.kategori)}</div><div class="t2">${esc(S.lembaga)}</div><div class="t3">${esc(S.wilayah)}</div></div></div>
+   <div class="bar">LEMBAR JAWABAN UJIAN</div>
+   <div><div class="ctr">TAHUN PELAJARAN ${esc(S.tahun)}</div>
+   <div class="how">Cara menjawab pada lembar jawaban :<div class="li"><b>1.</b><span>Beri tanda silang (x) tepat pada salah satu huruf ${hr}.</span></div><div class="li"><b>2.</b><span>Contoh cara memperbaiki jawaban yang salah (merubah pilihan) :<br>Pilihan semula <span class="ex">${LL.map(l=>bub(l)).join("")}</span> menjadi <span class="ex">${LL.map((l,i)=>bub(l,(i==0||i==LL.length-1)?"x":"")).join("")}</span></span></div></div></div>
+   <div class="bar">MATA PELAJARAN</div>
+   <div class="box"><div class="dots"></div></div>
+  </div>
+  <div class="col">
+   <div class="rules"><div class="li"><b>1.</b><span>Lembar Jawaban tidak boleh kotor, basah, robek atau terlipat</span></div><div class="li"><b>2.</b><span>Tulislah Nama, Kelas, serta semua data lainnya dengan benar.</span></div><div class="li"><b>3.</b><span>Beri tanda silang (x) pada beberapa pilihan isian yang tersedia</span></div></div>
+   <div class="bar">IDENTITAS DIRI</div>
+   <div class="idf"><div><i>Nama Lengkap</i><i>:</i><s></s></div><div><i>No. Peserta</i><i>:</i><s></s></div><div><i>Kelas</i><i>:</i><s></s></div><div><i>Hari, Tanggal Ujian</i><i>:</i><s></s></div></div>
+   <div class="bar">TANDA TANGAN PESERTA</div>
+   <div class="box"></div>
+  </div>
+ </div>
+ <div class="bar d">JAWABAN PILIHAN JAMAK</div>
+ <div class="hint">Beri tanda silang (x) dari pilihan jawaban yang anda anggap benar pada salah satu huruf ${hr}!</div>
+ <div class="opts" style="border-bottom:.35mm solid #000">
+  <div class="g" style="flex:1"><div class="gt">${two?"I. ":""}PILIHAN JAMAK</div>${pg}</div>
+  ${two?`<div class="g"><div class="gt">II. BENAR SALAH</div>${bs}</div>`:""}
+ </div>
+ <div class="bar d">JAWABAN ISIAN (ESSAY)</div>
+ <div class="note">Jawablah dengan singkat dan jelas pada kolom essay di bawah ini! Jika tidak muat pada halaman ini, dapat anda lanjutkan di halaman baliknya!</div>
+ <div class="essay">${"<i></i>".repeat(40)}</div>
+ <div class="foot"><div class="li"><b class="w">Perhatian :</b><div><div class="li"><b class="d">-</b><span>Teliti kembali hasil pekerjaan anda sebelum dikumpulkan kepada pengawas ujian.</span></div><div class="li"><b class="d">-</b><span>Pastikan semua data diri serta seluruh jawaban isian telah anda lengkapi dengan benar. Selamat Mengerjakan... Semoga Berhasil..!!!</span></div></div></div></div>
+ </div>`;
+ fitText();fit();
+}
+function fitText(){const cap={t1:20,t2:32,t3:14};document.querySelectorAll(".hd .t1,.hd .t2,.hd .t3").forEach(el=>{el.style.fontSize="";el.style.display="inline-block";const av=el.parentNode.offsetWidth-6;for(let i=0;i<3;i++){const px=parseFloat(getComputedStyle(el).fontSize),w=el.offsetWidth;if(!w)break;let n=px*av/w;n=Math.max(6,Math.min(cap[el.className.split(" ")[0]]||px,n));el.style.fontSize=n+"px";}el.style.display="";});}
+function fit(){
+ const w=SZ[S.ukuran][0]*3.7795,wr=$("wrap"),avail=wr.clientWidth||innerWidth-32;
+ const k=Math.min(1,avail/w);$("stage").style.zoom=k;
+}
+function sync(){
+ ["kategori","lembaga","tahun","wilayah","ukuran","npg","nbs","opsi","font"].forEach(k=>$(k).value=S[k]);
+ document.querySelectorAll("input[name=mode]").forEach(r=>r.checked=r.value===S.mode);
+ $("bsWrap").style.display=S.mode==="2"?"":"none";
+}
+["kategori","lembaga","tahun","wilayah"].forEach(k=>$(k).addEventListener("input",e=>{S[k]=e.target.value;save();render();}));
+$("ukuran").addEventListener("change",e=>{S.ukuran=e.target.value;save();render();});
+$("opsi").addEventListener("change",e=>{S.opsi=+e.target.value;save();render();});
+$("font").addEventListener("change",e=>{S.font=e.target.value;save();render();});
+[["npg",5,50],["nbs",5,30]].forEach(([k,a,b])=>$(k).addEventListener("input",e=>{let v=parseInt(e.target.value);if(!v)return;S[k]=Math.max(a,Math.min(b,v));save();render();}));
+document.querySelectorAll("input[name=mode]").forEach(r=>r.addEventListener("change",e=>{S.mode=e.target.value;save();sync();render();}));
+$("logoFile").addEventListener("change",e=>{
+ const f=e.target.files[0];if(!f)return;
+ const rd=new FileReader();rd.onload=()=>{const im=new Image();im.onload=()=>{
+  const m=240,s=Math.min(1,m/Math.max(im.width,im.height)),c=document.createElement("canvas");
+  c.width=im.width*s;c.height=im.height*s;c.getContext("2d").drawImage(im,0,0,c.width,c.height);
+  S.logo=c.toDataURL("image/png");save();render();};im.src=rd.result;};rd.readAsDataURL(f);
+});
+$("rmLogo").onclick=()=>{S.logo="";$("logoFile").value="";save();render();};
+$("reset").onclick=()=>{if(confirm("Kembalikan semua isian ke default?")){S=Object.assign({},DEF);save();sync();render();}};
+$("print").onclick=()=>window.print();
+addEventListener("resize",fit);
+sync();render();
+</script>
+<script>
+if("serviceWorker" in navigator&&location.protocol.indexOf("http")===0){addEventListener("load",()=>navigator.serviceWorker.register("sw.js").catch(()=>{}));}
+let dip=null;
+addEventListener("beforeinstallprompt",e=>{e.preventDefault();dip=e;document.getElementById("install").style.display="";});
+document.getElementById("install").onclick=async()=>{if(!dip)return;dip.prompt();await dip.userChoice;dip=null;document.getElementById("install").style.display="none";};
+addEventListener("appinstalled",()=>{document.getElementById("install").style.display="none";});
+</script>
+</body>
+</html>
