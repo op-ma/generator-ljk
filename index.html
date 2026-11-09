@@ -72,6 +72,8 @@ button.p{background:var(--ac);color:var(--acx);border-color:var(--ac)}
 .o{width:4.3mm;height:4.3mm;border:.25mm solid #000;border-radius:50%;display:inline-flex;align-items:center;justify-content:center;font-size:2.7mm;line-height:1;flex:none}
 .o.n{margin-right:.8mm;font-size:2.4mm}
 .o.x{background:#000;color:#fff}
+.o{position:relative}
+.o.m::after{content:"✕";position:absolute;inset:0;display:flex;align-items:center;justify-content:center;font-size:3.9mm;font-weight:900;line-height:1;color:#000}
 .hint{text-align:center;font-weight:700;font-size:3.2mm;padding:1.2mm;border-bottom:.35mm solid #000}
 .note{font-size:2.6mm;padding:1.2mm 2mm;border-bottom:.35mm solid #000}
 .essay{flex:1;min-height:20mm;overflow:hidden;border-bottom:.35mm solid #000}
@@ -149,7 +151,7 @@ function render(){
    <div class="hd">${logo}<div><div class="t1">${esc(S.kategori)}</div><div class="t2">${esc(S.lembaga)}</div><div class="t3">${esc(S.wilayah)}</div></div></div>
    <div class="bar">LEMBAR JAWABAN UJIAN</div>
    <div><div class="ctr">TAHUN PELAJARAN ${esc(S.tahun)}</div>
-   <div class="how">Cara menjawab pada lembar jawaban :<div class="li"><b>1.</b><span>Beri tanda silang (x) tepat pada salah satu huruf ${hr}.</span></div><div class="li"><b>2.</b><span>Contoh cara memperbaiki jawaban yang salah (merubah pilihan) :<br>Pilihan semula <span class="ex">${LL.map(l=>bub(l)).join("")}</span> menjadi <span class="ex">${LL.map((l,i)=>bub(l,(i==0||i==LL.length-1)?"x":"")).join("")}</span></span></div></div></div>
+   <div class="how">Cara menjawab pada lembar jawaban :<div class="li"><b>1.</b><span>Beri tanda silang (x) tepat pada salah satu huruf ${hr}.</span></div><div class="li"><b>2.</b><span>Contoh cara memperbaiki jawaban yang salah (merubah pilihan) :<br>Pilihan semula <span class="ex">${LL.map((l,i)=>bub(l,i==0?"m":"")).join("")}</span> menjadi = <span class="ex">${LL.map((l,i)=>bub(l,i==0?"x":i==LL.length-1?"m":"")).join("")}</span></span></div></div></div>
    <div class="bar">MATA PELAJARAN</div>
    <div class="box"><div class="dots"></div></div>
   </div>
