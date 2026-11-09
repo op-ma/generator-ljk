@@ -1,5 +1,5 @@
 // Ubah nomor versi ini setiap kali index.html diperbarui agar cache lama diganti.
-const CACHE = "ljk-v1";
+const CACHE = "ljk-v2";
 const ASSETS = [
   "./",
   "./index.html",
